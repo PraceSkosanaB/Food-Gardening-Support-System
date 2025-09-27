@@ -128,8 +128,8 @@
     </footer>
     <script>
       // Logout from anywhere: event delegation for all .nav-logout buttons
-      document.addEventListener("click", function(e) {
-        const target = e.target.closest('.nav-logout');
+      document.addEventListener("click", function (e) {
+        const target = e.target.closest(".nav-logout");
         if (target) {
           localStorage.removeItem("fg_current_user");
           location.href = "index.html";
