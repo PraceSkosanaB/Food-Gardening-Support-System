@@ -1,5 +1,5 @@
 [build]
-  publish = "Food Gardening"
+  publish = "Food Gardening/FoodGardening"
 
 [[redirects]]
   from = "/*"
