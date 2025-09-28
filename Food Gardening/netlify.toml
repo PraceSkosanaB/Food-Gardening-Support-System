@@ -1,7 +1,3 @@
-toml
-
-
-
 [build]
   publish = "Food Gardening"
 
