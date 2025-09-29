@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (form && result) {
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-        const y = parseFloat(document.getElementById("yield").value);
+        const y = parseFloat(document.getElementById("yield-amount").value);
         const p = parseFloat(document.getElementById("price").value);
         const c = parseFloat(document.getElementById("costs").value);
         if (isNaN(y) || isNaN(p) || isNaN(c)) {
