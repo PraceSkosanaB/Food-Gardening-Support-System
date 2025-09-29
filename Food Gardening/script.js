@@ -117,25 +117,35 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- Calculator logic ---
   // Profitability
   if (path === "profitability.html") {
-    const form = document.getElementById("profit-form");
-    const result = document.getElementById("profit-result");
-    if (form && result) {
-      form.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        const y = parseFloat(document.getElementById("yield-amount").value);
-        const p = parseFloat(document.getElementById("price").value);
-        const c = parseFloat(document.getElementById("costs").value);
-        if (isNaN(y) || isNaN(p) || isNaN(c)) {
-          result.textContent = "Please fill all fields.";
-          return;
-        }
-        const revenue = y * p;
-        const profit = revenue - c;
-        result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(
-          2
-        )}<br><b>Profit:</b> R${profit.toFixed(2)}`;
-      });
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("profit-form");
+      const result = document.getElementById("profit-result");
+      if (form && result) {
+        form.addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          // Defensive: check if elements exist
+          const yEl = document.getElementById("yield-amount");
+          const pEl = document.getElementById("price");
+          const cEl = document.getElementById("costs");
+          if (!yEl || !pEl || !cEl) {
+            result.textContent = "Calculator error: missing input field.";
+            return;
+          }
+          const y = parseFloat(yEl.value);
+          const p = parseFloat(pEl.value);
+          const c = parseFloat(cEl.value);
+          if (isNaN(y) || isNaN(p) || isNaN(c)) {
+            result.textContent = "Please fill all fields with valid numbers.";
+            return;
+          }
+          const revenue = y * p;
+          const profit = revenue - c;
+          result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(2)}<br><b>Profit:</b> R${profit.toFixed(2)}`;
+        });
+      } else if (result) {
+        result.textContent = "Calculator error: form not found.";
+      }
+    });
   }
   // Area
   if (path === "area.html") {
