@@ -65,21 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
       location.href = "home.html";
     });
     regBtn.addEventListener("click", function () {
-      const u = userEl.value.trim();
-      const p = passEl.value;
-      if (!u || !p) {
-        show("Please provide username and password.");
-        return;
-      }
-      const users = getUsers();
-      if (users[u]) {
-        show("User already exists, choose a different username.");
-        return;
-      }
-      users[u] = p;
-      saveUsers(users);
-      setCurrent(u);
-      location.href = "home.html";
+      // Open the sign up page in a new tab
+      window.open("register.html", "_blank");
     });
     return;
   }
@@ -115,36 +102,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- Calculator logic ---
-  // Helper to attach profitability form handler
-  function attachProfitFormHandler() {
+  // Profitability
+  if (path === "profitability.html") {
     const form = document.getElementById("profit-form");
     const result = document.getElementById("profit-result");
     if (form && result) {
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-        const yEl = document.getElementById("yield-amount");
-        const pEl = document.getElementById("price");
-        const cEl = document.getElementById("costs");
-        if (!yEl || !pEl || !cEl) {
-          result.textContent = "Calculator error: missing input field.";
-          return;
-        }
-        const y = parseFloat(yEl.value);
-        const p = parseFloat(pEl.value);
-        const c = parseFloat(cEl.value);
+        const y = parseFloat(document.getElementById("yield").value);
+        const p = parseFloat(document.getElementById("price").value);
+        const c = parseFloat(document.getElementById("costs").value);
         if (isNaN(y) || isNaN(p) || isNaN(c)) {
-          result.textContent = "Please fill all fields with valid numbers.";
+          result.textContent = "Please fill all fields.";
           return;
         }
         const revenue = y * p;
         const profit = revenue - c;
-        result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(2)}<br><b>Profit:</b> R${profit.toFixed(2)}`;
+        result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(
+          2
+        )}<br><b>Profit:</b> R${profit.toFixed(2)}`;
       });
     }
   }
-
-  // Helper to attach area form handler
-  function attachAreaFormHandler() {
+  // Area
+  if (path === "area.html") {
     const form = document.getElementById("area-form");
     const result = document.getElementById("area-result");
     if (form && result) {
@@ -159,21 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const total = n * a;
         result.innerHTML = `<b>Total Area Needed:</b> ${total.toFixed(2)} m²`;
       });
-    }
-  }
-
-  if (path === "profitability.html") {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", attachProfitFormHandler);
-    } else {
-      attachProfitFormHandler();
-    }
-  }
-  if (path === "area.html") {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", attachAreaFormHandler);
-    } else {
-      attachAreaFormHandler();
     }
   }
 })();

@@ -39,7 +39,7 @@
             <div class="form-row">
               <label
                 >Expected Yield (kg):
-                <input type="number" id="yield-amount" min="0" step="any" required />
+                <input type="number" id="yield" min="0" step="any" required />
               </label>
             </div>
             <div class="form-row">
@@ -70,7 +70,9 @@
             <div class="footer-contact-heading">Call us:</div>
             <div class="footer-contact-info">+27 12 345 6789</div>
             <div class="footer-contact-heading">Email us:</div>
-            <div class="footer-contact-info">support@codeCrusaders2025.ac.za</div>
+            <div class="footer-contact-info">
+              support@codeCrusaders2025.ac.za
+            </div>
           </div>
         </div>
         <div class="footer-about">
@@ -141,6 +143,40 @@
       </div>
     </footer>
     <script src="script.js"></script>
-    
+    <script>
+      // Responsive nav logic
+      const navToggle = document.querySelector(".nav-toggle");
+      const sidebar = document.getElementById("sidebar-nav");
+      navToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+      // Sync logout buttons
+      const logoutBtn = document.getElementById("logout-btn");
+      const logoutBtnSide = document.getElementById("logout-btn-side");
+      function doLogout() {
+        localStorage.removeItem("fg_current_user");
+        location.href = "index.html";
+      }
+      if (logoutBtn) logoutBtn.onclick = doLogout;
+      if (logoutBtnSide) logoutBtnSide.onclick = doLogout;
+      // Highlight nav
+      document.querySelectorAll(".nav-main a, .sidebar nav a").forEach((a) => {
+        if (a.getAttribute("href") === "profitability.html")
+          a.classList.add("active");
+      });
+      // Spinner for calculator
+      const form = document.getElementById("profit-form");
+      const result = document.getElementById("profit-result");
+      if (form && result) {
+        form.addEventListener(
+          "submit",
+          function () {
+            result.innerHTML = '<span class="spinner"></span>';
+          },
+          { once: false }
+        );
+      }
+    </script>
   </body> 
+  <script src="chatbot.js"></script>
 </html>
