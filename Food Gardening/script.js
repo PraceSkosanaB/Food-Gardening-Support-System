@@ -115,40 +115,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- Calculator logic ---
-  // Profitability
-  if (path === "profitability.html") {
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("profit-form");
-      const result = document.getElementById("profit-result");
-      if (form && result) {
-        form.addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          // Defensive: check if elements exist
-          const yEl = document.getElementById("yield-amount");
-          const pEl = document.getElementById("price");
-          const cEl = document.getElementById("costs");
-          if (!yEl || !pEl || !cEl) {
-            result.textContent = "Calculator error: missing input field.";
-            return;
-          }
-          const y = parseFloat(yEl.value);
-          const p = parseFloat(pEl.value);
-          const c = parseFloat(cEl.value);
-          if (isNaN(y) || isNaN(p) || isNaN(c)) {
-            result.textContent = "Please fill all fields with valid numbers.";
-            return;
-          }
-          const revenue = y * p;
-          const profit = revenue - c;
-          result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(2)}<br><b>Profit:</b> R${profit.toFixed(2)}`;
-        });
-      } else if (result) {
-        result.textContent = "Calculator error: form not found.";
-      }
-    });
+  // Helper to attach profitability form handler
+  function attachProfitFormHandler() {
+    const form = document.getElementById("profit-form");
+    const result = document.getElementById("profit-result");
+    if (form && result) {
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        const yEl = document.getElementById("yield-amount");
+        const pEl = document.getElementById("price");
+        const cEl = document.getElementById("costs");
+        if (!yEl || !pEl || !cEl) {
+          result.textContent = "Calculator error: missing input field.";
+          return;
+        }
+        const y = parseFloat(yEl.value);
+        const p = parseFloat(pEl.value);
+        const c = parseFloat(cEl.value);
+        if (isNaN(y) || isNaN(p) || isNaN(c)) {
+          result.textContent = "Please fill all fields with valid numbers.";
+          return;
+        }
+        const revenue = y * p;
+        const profit = revenue - c;
+        result.innerHTML = `<b>Revenue:</b> R${revenue.toFixed(2)}<br><b>Profit:</b> R${profit.toFixed(2)}`;
+      });
+    }
   }
-  // Area
-  if (path === "area.html") {
+
+  // Helper to attach area form handler
+  function attachAreaFormHandler() {
     const form = document.getElementById("area-form");
     const result = document.getElementById("area-result");
     if (form && result) {
@@ -163,6 +159,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const total = n * a;
         result.innerHTML = `<b>Total Area Needed:</b> ${total.toFixed(2)} m²`;
       });
+    }
+  }
+
+  if (path === "profitability.html") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", attachProfitFormHandler);
+    } else {
+      attachProfitFormHandler();
+    }
+  }
+  if (path === "area.html") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", attachAreaFormHandler);
+    } else {
+      attachAreaFormHandler();
     }
   }
 })();
