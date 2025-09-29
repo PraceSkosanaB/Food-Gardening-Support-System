@@ -143,39 +143,6 @@
       </div>
     </footer>
     <script src="script.js"></script>
-    <script>
-      // Responsive nav logic
-      const navToggle = document.querySelector(".nav-toggle");
-      const sidebar = document.getElementById("sidebar-nav");
-      navToggle.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
-      });
-      // Sync logout buttons
-      const logoutBtn = document.getElementById("logout-btn");
-      const logoutBtnSide = document.getElementById("logout-btn-side");
-      function doLogout() {
-        localStorage.removeItem("fg_current_user");
-        location.href = "index.html";
-      }
-      if (logoutBtn) logoutBtn.onclick = doLogout;
-      if (logoutBtnSide) logoutBtnSide.onclick = doLogout;
-      // Highlight nav
-      document.querySelectorAll(".nav-main a, .sidebar nav a").forEach((a) => {
-        if (a.getAttribute("href") === "profitability.html")
-          a.classList.add("active");
-      });
-      // Spinner for calculator
-      const form = document.getElementById("profit-form");
-      const result = document.getElementById("profit-result");
-      if (form && result) {
-        form.addEventListener(
-          "submit",
-          function () {
-            result.innerHTML = '<span class="spinner"></span>';
-          },
-          { once: false }
-        );
-      }
-    </script>
+    
   </body>
 </html>
